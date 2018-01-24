@@ -19,8 +19,8 @@ class Scraper
   end
 
   def get_personal_records
-      t_start = Time.new
-      puts "Starting: #{t_start}"
+    t_start = Time.new
+    puts "Starting: #{t_start}"
 
     CSV.open("./seeds/all_records.csv","wb") do |csv|
       CSV.foreach("./seeds/player_names.csv") do |row|
@@ -44,12 +44,14 @@ class Scraper
         end
       end
     end
-    # t_end = Time.new
-    # puts "Finished at: #{t_end}"
-    # difference = t_end - t_start
-    # puts "Total Seconds: #{difference}"
-    # difference = difference.to_i
-    # puts "Or #{difference/60} minutes, #{difference % 60} seconds"
+
+    t_end = Time.new
+    puts "Finished at: #{t_end}"
+    difference = t_end - t_start
+    puts "Total Seconds: #{difference}"
+    difference = difference.to_i
+    puts "Or #{difference/60} minutes, #{difference % 60} seconds"
+
   end
 
   def get_players
@@ -64,6 +66,7 @@ class Scraper
     remaining_names = text.values_at(* text.each_index.select{ |i| (i-1)%6 == 0})
 
     @names << remaining_names
+
     @names.flatten!
     @names.map! { |n| n[1..-2]}
 
@@ -89,6 +92,6 @@ class Scraper
 end
 
 sample_seed = Scraper.new
-# sample_seed.get_players
-# sample_seed.get_player_achievements
+sample_seed.get_players
+sample_seed.get_player_achievements
 sample_seed.get_personal_records
